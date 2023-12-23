@@ -5,7 +5,7 @@ Thank you to : https://docs.docker.com/engine/install/debian/#install-using-the-
 
      curl -fsSL https://get.docker.com -o get-docker.sh
     
-     sudo sh ./get-docker.sh --dry-run
+     sudo sh ./get-docker.sh
 
 Thank you to : https://www.home-assistant.io/installation/raspberrypi
 
