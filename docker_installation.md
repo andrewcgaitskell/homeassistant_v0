@@ -1,3 +1,12 @@
+
+## Install Docker on to Pi 4B with 64Bit OS
+
+Thank you to : https://docs.docker.com/engine/install/debian/#install-using-the-convenience-script
+
+     curl -fsSL https://get.docker.com -o get-docker.sh
+    
+     sudo sh ./get-docker.sh --dry-run
+
 Thank you to : https://www.home-assistant.io/installation/raspberrypi
 
 # Text
