@@ -123,3 +123,25 @@ docker run --sysctl "net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwardi
                config:
                - subnet: 2001:3984:3989::/64
                  gateway: 2001:3984:3989::1
+
+
+# Workings
+
+--sysctl "net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1" -p 8080:80 --dns=127.0.0.1 -it --volume /dev/ttyACM0:/dev/ttyACM0 --privileged openthread/otbr --radio-url spinel+hdlc+uart:///dev/ttyACM0
+
+    services:
+       openthread_border_router:
+         image: openthread/otbr
+         volumes:
+           - /dev/ttyACM0:/dev/ttyACM0
+         sysctls:
+           net.ipv6.conf.all.disable_ipv6: 0
+           net.ipv4.conf.all.forwarding: 1
+           net.ipv6.conf.all.forwarding: 1
+         ports:
+           - 8080:80
+         dns:
+           - 127.0.0.1
+         privileged: true
+         command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0"]
+         # network_mode: host
