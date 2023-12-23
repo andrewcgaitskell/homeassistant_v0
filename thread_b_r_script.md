@@ -20,31 +20,39 @@ nRF52840 Dongle:
 
 4.  Build OpenThread for the nRF52840 Dongle:
 
-         $ script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB -DOT_THREAD_VERSION=1.2
+         $ script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB -DOT_THREAD_VERSION=1.2 - DID NOT WORK
+        script/build nrf52840 USB_trans - THIS DID
 
     This creates an RCP image at `build/bin/ot-rcp`.
 
-5.  Convert the RCP image to the `.hex` format:
+Go back to root folder
+
+6.  Convert the RCP image to the `.hex` format:
 
         $ arm-none-eabi-objcopy -O ihex build/bin/ot-rcp build/bin/ot-rcp.hex
 
-6.  Install
-    [nRF Util](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Util):
+7.    enable Pipenv
 
-        $ python3 -m pip install -U nrfutil
+8.  Install nrfutil
 
-7.  Generate the RCP firmware package:
+        $ python -m pip install -U nrfutil
+    
+
+10.  Generate the RCP firmware package:
 
         $ nrfutil pkg generate --hw-version 52 --sd-req=0x00 \
             --application build/bin/ot-rcp.hex \
             --application-version 1 build/bin/ot-rcp.zip
 
-8.  Connect the nRF52840 Dongle to the USB port.
+11.  Connect the nRF52840 Dongle to the USB port.
+12.  Discover Device
+        ls /dev/ttyACM*
+        /dev/ttyACM0
 
-9.  Press the **Reset** button on the dongle to put it into the DFU mode. Red
+13.  Press the **Reset** button on the dongle to put it into the DFU mode. Red
     LED on the dongle starts blinking.
 
-10. To install the RCP firmware package onto the dongle, run the following
+14. To install the RCP firmware package onto the dongle, run the following
     command, with _/dev/ttyACM0_ replaced with the device node name of your
     nRF52840 Dongle:
 
