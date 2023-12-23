@@ -59,3 +59,67 @@ Go back to ot-nrf528xx folder
     nRF52840 Dongle:
 
         $ nrfutil dfu usb-serial -pkg build/bin/ot-rcp.zip -p /dev/ttyACM0
+
+# Adding TBR to Docker Container
+
+docker run --sysctl "net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1" -p 8080:80 --dns=127.0.0.1 -it --volume /dev/ttyACM0:/dev/ttyACM0 --privileged openthread/otbr --radio-url spinel+hdlc+uart:///dev/ttyACM0
+
+        convert to docker compose
+        
+        version: "3.8"
+        services:
+          # python-matter-server
+          matter-server:
+            image: ghcr.io/home-assistant-libs/python-matter-server:stable
+            container_name: matter-server
+            restart: unless-stopped
+            # Required for mDNS to work correctly
+            network_mode: host
+            security_opt:
+              # Needed for Bluetooth via dbus
+              - apparmor:unconfined
+            volumes:
+              # Create an .env file that sets the USERDIR environment variable.
+              - ${USERDIR:-$HOME}/docker/matter-server/data:/data/
+              - /run/dbus:/run/dbus:ro
+        
+        version: "2.1"
+        
+        services:
+           openthread_border_router:
+             image: openthread/otbr
+             volumes:
+               - /dev/ttyACM0:/dev/ttyACM0
+             sysctls:
+               net.ipv6.conf.all.disable_ipv6: 0
+               net.ipv4.conf.all.forwarding: 1
+               net.ipv6.conf.all.forwarding: 1
+             ports:
+               - 8080:80
+             dns:
+               - 127.0.0.1
+             privileged: true
+             command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0"]
+             # network_mode: host
+             networks:
+               ipv6net:
+                  ipv6_address: 2001:3984:3989::20
+        
+           coap_logger:
+             build: ./coap_logger
+             command: ["python", "coap_echo.py"]
+             # network_mode: host
+             networks:
+              - ipv6net
+             cap_add:
+               - NET_ADMIN
+        
+         networks:
+           ipv6net:
+             driver: bridge
+             enable_ipv6: true
+             ipam:
+               driver: default
+               config:
+               - subnet: 2001:3984:3989::/64
+                 gateway: 2001:3984:3989::1
