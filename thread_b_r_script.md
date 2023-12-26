@@ -54,22 +54,28 @@ Go back to ot-nrf528xx folder
 
 9.  Install nrfutil
 
+   nedding to install using different apperiach
+
+   sudo apt-get install qemu-system
+
+   
+
         python -m pip install -U nrfutil
     
 
-10.  Generate the RCP firmware package:
+11.  Generate the RCP firmware package:
 
         $ nrfutil pkg generate --hw-version 52 --sd-req=0x00 --application build/bin/ot-rcp.hex --application-version 1 build/bin/ot-rcp.zip
 
-11.  Connect the nRF52840 Dongle to the USB port
-12.  Discover Device
+12.  Connect the nRF52840 Dongle to the USB port
+13.  Discover Device
         ls /dev/ttyACM*
         /dev/ttyACM0
 
-13.  Press the **Reset** button on the dongle to put it into the DFU mode. Red
+14.  Press the **Reset** button on the dongle to put it into the DFU mode. Red
     LED on the dongle starts blinking.
 
-14. To install the RCP firmware package onto the dongle, run the following
+15. To install the RCP firmware package onto the dongle, run the following
     command, with _/dev/ttyACM0_ replaced with the device node name of your
     nRF52840 Dongle:
 
