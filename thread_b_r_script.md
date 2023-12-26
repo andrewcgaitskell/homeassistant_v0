@@ -25,19 +25,25 @@ nRF52840 Dongle:
        >>>>>>>>>> script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB -DOT_THREAD_VERSION=1.2 <<<<<<<<<<<<< DID NOT WORK
        script/build nrf52840 USB_trans - THIS DID
        >>>>>>>>>
+       >>>>>>>>>
        script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB
+
+        cd bin/build
 
     This creates an RCP image at `build/bin/ot-rcp`.
 
 Go back to ot-nrf528xx folder
 
 6.  Convert the RCP image to the `.hex` format:
+        cd ..
+        cd ..
+    
 
         $ arm-none-eabi-objcopy -O ihex build/bin/ot-rcp build/bin/ot-rcp.hex
 
-7.    enable Pipenv
+8.    enable Pipenv
 
-8.  Install nrfutil
+9.  Install nrfutil
 
         python -m pip install -U nrfutil
     
