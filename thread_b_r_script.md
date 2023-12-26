@@ -81,6 +81,24 @@ Go back to ot-nrf528xx folder
 
         $ nrfutil dfu usb-serial -pkg build/bin/ot-rcp.zip -p /dev/ttyACM0
 
+# Using Adafrit nrfutil
+
+## Reference
+
+https://pypi.org/project/adafruit-nrfutil/
+
+adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application firmware.hex dfu-package.zip
+
+adafruit-nrfutil dfu serial --package dfu-package.zip -p /dev/tty.SLAB_USBtoUART -b 115200
+
+## Applied
+
+ nrfutil pkg generate --hw-version 52 --sd-req=0x00 --application build/bin/ot-rcp.hex --application-version 1 build/bin/ot-rcp.zip
+
+adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/bin/ot-rcp.hex build/bin/ot-rcp.zip
+
+adafruit-nrfutil dfu serial --package build/bin/ot-rcp.zip -p /dev/ttyACM0 -b 115200
+
 # Adding TBR to Docker Container
 
 docker run --sysctl "net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1" -p 8080:80 --dns=127.0.0.1 -it --volume /dev/ttyACM0:/dev/ttyACM0 --privileged openthread/otbr --radio-url spinel+hdlc+uart:///dev/ttyACM0
