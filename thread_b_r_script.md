@@ -24,6 +24,8 @@ nRF52840 Dongle:
 
        >>>>>>>>>> script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB -DOT_THREAD_VERSION=1.2 <<<<<<<<<<<<< DID NOT WORK
        script/build nrf52840 USB_trans - THIS DID
+       >>>>>>>>>
+       script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB
 
     This creates an RCP image at `build/bin/ot-rcp`.
 
