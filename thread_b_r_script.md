@@ -2,6 +2,15 @@ Thanks to : https://github.com/espressif/connectedhomeip/blob/903e149bd636a5cd1a
 
 And : https://openthread.io/codelabs/openthread-hardware#2
 
+
+## Re installed gcc
+
+removed the existing package
+updated
+upgraded
+reinstall gcc
+
+
 ## Building and programming the RCP firmware onto an nRF52840 Dongle
 
 Run the following commands to build and program the RCP firmware onto an
