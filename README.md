@@ -28,6 +28,12 @@ using the Custom option and then selecting the downloaded file
 
 https://download.fedoraproject.org/pub/fedora/linux/releases/40/Workstation/aarch64/images/Fedora-Workstation-40-1.14.aarch64.raw.xz
 
+# updating
+
+sudo bash
+
+yum update
+
 
 
 
