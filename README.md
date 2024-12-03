@@ -1,16 +1,4 @@
-# summary
-
-i tried to use rootless docker
-
-rootless docker does not allow user mapping between host and container
-
-# completely different approach
-
-i have reverted to using podman
-
-i had concerns with podman and debian
-
-so, I am experimenting with using fedora
+# Using PODMAN
 
 podman is already installed in fedora
 
