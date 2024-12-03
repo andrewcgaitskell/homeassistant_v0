@@ -1,0 +1,17 @@
+# Stage 1: Build Stage
+FROM node:22.6-bookworm
+
+WORKDIR /usr/src
+#COPY package*.json ./
+#RUN npm install
+#COPY . .
+#RUN npm cache clean --force
+#RUN npm install -g n
+#RUN n stable
+#RUN npm install -g npm@10.8.2
+RUN npx create-react-app app
+
+WORKDIR /usr/src/app
+EXPOSE 3000
+CMD ["npm", "start"]
+

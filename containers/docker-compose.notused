@@ -1,0 +1,161 @@
+version: '3'
+networks:
+   mqtt-net:
+       driver: bridge
+
+services:
+    portainer:
+       container_name: portainer
+       #args:
+       #   GID: ${GID}
+       #   UID: ${UID}
+       image: portainer/portainer-ce
+       restart: always
+       ports:
+       - "9000:9000"
+       environment:
+         - TZ=Europe/London
+       volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /home/andrewcgaitskell/home_data/portainer:/data
+    mariadb:
+        container_name: mariadb_container
+        image: mariadb_image
+        #args:
+        #    GID: ${GID}
+        #    UID: ${UID}
+        build:
+            context: ./mariadb
+            dockerfile: Dockerfile
+        ports:
+        - "3306:3306"
+        volumes:
+            - /home/andrewcgaitskell/home_data/mariadb/:/var/lib/mysql
+        networks:
+            - mqtt-net
+    jupyter:
+       container_name: jupyter_container
+       image: jupyter_image
+       #args:
+       #     GID: ${GID}
+       #     UID: ${UID}
+       #user:
+          #"1000:1000"
+          #"101000:101000"
+       restart: always
+       build:
+            context: ./jupyter_2
+            dockerfile: Dockerfile
+            args:
+               BUILD_ENV_USER : ${USER}
+               BUILD_ENV_USER_UID : 101000
+               BUILD_ENV_USER_GID : 101000
+               BUILD_ENV_GROUPID : 101000
+               BUILD_ENV_GROUPNAME : 'home_docker_group'
+       environment:
+             JUPYTER_ENABLE_LAB: "yes"
+             JUPYTER_TOKEN: "docker"
+             DOCKER_DRIVER : "fuse-overlayfs"
+             #JUPYTER_DATA_DIR: "/home/andrewcgaitskell/notebooks"
+             #JUPYTER_NOTEBOOK_DIR: "/home/andrewcgaitskell/notebooks"
+       ports:
+       - "8888:8888"
+       #volumes:
+       #   - jupyter-notebooks:/home/andrewcgaitskell/notebooks:z
+       networks:
+            - mqtt-net
+       #command:
+       #   start-notebook.py --NotebookApp.token='mytoken123'
+                
+#    nodejs:
+#        container_name: ${COMPOSE_PROJECT_NAME}_${NODEJS_SERVER_NAME}
+#        image: ${NODEJS_CONTAINER_IMAGE}
+#        user: ${NODEJS_USER}
+#        command: ${NODEJS_COMMAND}
+#        build: ./nodejs
+#        ports:
+#        - "4001:4001"
+#        environment:
+#            NODE_ENV: ${NODEJS_ENV}
+#        volumes:
+#            - /home/andrewcgaitskell/home_data/nodejs:/home/node/project
+#        working_dir: /home/node/project
+#        networks:
+#            - mqtt-net
+
+    reactjs:
+        container_name: reactjs_container
+        image: reactjs_image
+        #args:
+        #    GID: ${GID}
+        #    UID: ${UID}
+        build:
+            context: ./reactjs
+            dockerfile: Dockerfile
+        #volumes:
+        #   - /home/andrewcgaitskell/home_data/reactjs/src:/app/src
+        ports:
+           - "4000:4000"
+        networks:
+            - mqtt-net
+
+    mosquitto:
+        image: eclipse-mosquitto
+        container_name: mosquitto
+        #args:
+        #    GID: ${GID}
+        #    UID: ${UID}
+        build: ./mosquitto
+        volumes:
+           - /home/andrewcgaitskell/home_data/mosquitto/data:/mosquitto/data
+           - /home/andrewcgaitskell/home_data/app/data/mosquitto/log:/mosquitto/log
+        ports:
+            - "1883:1883"
+            - "8080:8080"
+        networks:
+            - mqtt-net
+
+#    flask:
+#        build: ./flask
+#        volumes:
+#           - /home/andrewcgaitskell/home_data/app/flask:/flask
+#        stop_signal: SIGINT
+#        depends_on:
+#           - mosquitto
+#        ports:
+#           - "5000:5000"
+#        networks:
+#            - mqtt-net
+
+    dash:
+        image: dash_image
+        container_name: dash_container
+        #args:
+        #    GID: ${GID}
+        #    UID: ${UID}
+        build: ./dash
+        volumes:
+           - /home/andrewcgaitskell/home_docker/dash/:/workdir
+        stop_signal: SIGINT
+        ports:
+           - "5015:5015"
+        depends_on:
+           - mosquitto
+        networks:
+            - mqtt-net
+           
+#mqtt_dashboard:
+#        container_name: mqtt_dashboard_container
+#        image: mqtt_dashboard_image
+#        build:
+#            context: ./mqtt_dashboard
+#            dockerfile: Dockerfile
+#        depends_on:
+#           - mosquitto
+#        volumes:
+#            - /home/andrewcgaitskell/Software/app/mqtt_dashboard/src:/app/src
+#        ports:
+#           - 4002:4002
+
+#volumes:
+#  jupyter-notebooks:

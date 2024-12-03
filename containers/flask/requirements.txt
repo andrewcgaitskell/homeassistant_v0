@@ -1,0 +1,9 @@
+eventlet
+flask
+flask_mqtt
+flask_bootstrap
+flask_socketio
+python-engineio
+python-socketio
+
+
