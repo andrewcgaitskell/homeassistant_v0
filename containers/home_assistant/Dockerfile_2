@@ -1,0 +1,25 @@
+# Use the previously built Home Assistant image as the base
+FROM home_assistant_image_1:latest
+
+# Set working directory
+WORKDIR /usr/src/homeassistant
+
+# Copy additional configuration files (optional)
+# Uncomment the line below if you have additional setup scripts or files
+# COPY custom_scripts/ /usr/src/homeassistant/custom_scripts/
+
+# Install additional Python dependencies
+COPY requirements.txt requirements.txt
+RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements.txt
+
+# Optional: Install additional system packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    jq \
+    && apt-get clean
+
+# Expose the default port used by Home Assistant
+EXPOSE 8123
+
+# Entry point remains unchanged
+CMD ["/usr/src/homeassistant/venv/bin/hass", "--config", "/config"]
