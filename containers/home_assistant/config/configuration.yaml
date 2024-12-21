@@ -2,4 +2,4 @@ logger:
   default: info
   logs:
     homeassistant.core: warning
-  filename: /config/logs/home-assistant.log
+  filename: /env/home-assistant.log
