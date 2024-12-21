@@ -23,10 +23,12 @@ COPY requirements_2.txt requirements_2.txt
 RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements_2.txt
 
 # Optional: Install additional system packages
-RUN apt-get update && apt-get install -y \
-    curl \
-    jq \
-    && apt-get clean
+# RUN apt-get update && apt-get install -y \
+#    curl \
+#    jq \
+#    && apt-get clean
+
+USER ${ENV_UID}:${ENV_GID}
 
 # Expose the default port used by Home Assistant
 EXPOSE 8123
