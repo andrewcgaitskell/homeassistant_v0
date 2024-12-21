@@ -17,13 +17,13 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src/homeassistant
 
 # Copy requirements.txt to the container
-COPY requirements.txt requirements.txt
+COPY requirements_1.txt requirements_1.txt
 
 # Create a Python virtual environment
 RUN python -m venv venv
 
 # Activate the virtual environment and install dependencies from requirements.txt
-RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements.txt
+RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements_1.txt
 
 # Expose the default port used by Home Assistant
 EXPOSE 8123
