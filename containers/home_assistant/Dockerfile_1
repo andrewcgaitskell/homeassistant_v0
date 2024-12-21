@@ -37,6 +37,9 @@ RUN chown -R ${ENV_UID}:${ENV_GID} /env
 RUN mkdir /usr/src/homeassistant
 RUN chown -R ${ENV_UID}:${ENV_GID} /usr/src/homeassistant
 
+RUN mkdir /config
+RUN chown -R ${ENV_UID}:${ENV_GID} /config
+
 USER ${ENV_UID}:${ENV_GID}
 
 ENV VIRTUAL_ENV=/env
