@@ -14,6 +14,5 @@ podman run -d \
     -p 8123:8123 \
     -e TZ=Europe/London \
     --user $uid:$gid \
-    --network=host \
     home_assistant_image_2
 
