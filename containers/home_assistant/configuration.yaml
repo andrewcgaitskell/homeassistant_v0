@@ -1,0 +1,14 @@
+weather:
+  - platform: metoffice
+    api_key: !secret metoffice_api_key
+    name: Met Office Weather
+    latitude: 51.5074
+    longitude: -0.1278
+
+octopus_energy:
+  api_key: !secret octopus_api_key
+
+sensor:
+  - platform: tfl
+    app_id: !secret tfl_app_id
+    app_key: !secret tfl_app_key
