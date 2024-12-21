@@ -1,7 +1,3 @@
-STATUS="home_dev"
-podman pod stop ${STATUS}_pod
-podman pod rm ${STATUS}_pod
-
 uid=${ENV_UID} ##1001
 gid=${ENV_GID} ##1002
 
