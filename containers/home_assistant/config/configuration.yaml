@@ -1,5 +1,1 @@
-logger:
-  default: info
-  logs:
-    homeassistant.core: warning
-  filename: /env/home-assistant.log
+
