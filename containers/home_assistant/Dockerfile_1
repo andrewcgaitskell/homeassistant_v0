@@ -1,5 +1,13 @@
-# Use the latest Python 3.12 slim image
-FROM python:3.12-slim
+FROM python:3.12.4-bookworm
+ARG BUILD_ENV_USERNAME
+ARG BUILD_ENV_UID
+ARG BUILD_ENV_GID 
+ARG BUILD_ENV_GROUPNAME
+
+ENV ENV_USERNAME=$BUILD_ENV_USERNAME
+ENV ENV_UID=$BUILD_ENV_UID
+ENV ENV_GID=$BUILD_ENV_GID 
+ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,17 +21,39 @@ RUN apt-get update && apt-get install -y \
     git \
     && apt-get clean
 
+
+####
+
+RUN echo groupadd --gid ${ENV_GID} ${ENV_GROUPNAME}
+RUN groupadd --gid ${ENV_GID} ${ENV_GROUPNAME}
+RUN echo useradd --uid ${ENV_UID} --gid ${ENV_GID} -m ${ENV_USERNAME}
+RUN useradd --uid ${ENV_UID} --gid ${ENV_GID} -m ${ENV_USERNAME}
+
+RUN mkdir /env
+RUN chown -R ${ENV_UID}:${ENV_GID} /env
+
+USER ${ENV_UID}:${ENV_GID}
+
+ENV VIRTUAL_ENV=/env
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+RUN /env/bin/python3 -m pip install --upgrade pip
+RUN . /env/bin/activate
+RUN /env/bin/python3 --version
+RUN whereis python3
+RUN whereis pip3
+
+COPY requirements_1.txt /env/requirements_1.txt
+RUN /env/bin/pip3 install -r /env/requirements_1.txt
+
+RUN /env/bin/pip3 freeze
+
+
+####
+
 # Set working directory
 WORKDIR /usr/src/homeassistant
-
-# Copy requirements.txt to the container
-COPY requirements_1.txt requirements_1.txt
-
-# Create a Python virtual environment
-RUN python -m venv venv
-
-# Activate the virtual environment and install dependencies from requirements.txt
-RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements_1.txt
 
 # Expose the default port used by Home Assistant
 EXPOSE 8123
