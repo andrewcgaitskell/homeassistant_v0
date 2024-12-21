@@ -11,9 +11,9 @@ podman rm home_assistant_container_1
 
 podman run -d \
     --name home_assistant_container_1 \
-    --pod ${STATUS}_pod \
-    --network=host \
+    -p 8123:8123 \
     -e TZ=Europe/London \
     --user $uid:$gid \
     -v /home/pi5ha/homeassistant_v0/containers/home_assistant/config:/config:Z \
     home_assistant_image_2
+
