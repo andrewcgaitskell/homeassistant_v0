@@ -14,21 +14,12 @@ ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 # Set working directory
 WORKDIR /usr/src/homeassistant
 
-# Copy additional configuration files (optional)
-# Uncomment the line below if you have additional setup scripts or files
-# COPY custom_scripts/ /usr/src/homeassistant/custom_scripts/
-
-# Install additional Python dependencies
-COPY requirements_2.txt requirements_2.txt
-RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements_2.txt
-
-# Optional: Install additional system packages
-# RUN apt-get update && apt-get install -y \
-#    curl \
-#    jq \
-#    && apt-get clean
-
 USER ${ENV_UID}:${ENV_GID}
+
+COPY requirements_2.txt /env/requirements_2.txt
+RUN /env/bin/pip3 install -r /env/requirements_1.txt
+
+RUN /env/bin/pip3 freeze
 
 # Expose the default port used by Home Assistant
 EXPOSE 8123
