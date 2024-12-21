@@ -61,10 +61,10 @@ RUN /env/bin/pip3 freeze
 WORKDIR /usr/src/homeassistant
 
 # Expose the default port used by Home Assistant
-EXPOSE 8123
+# EXPOSE 8123
 
 # Create a volume for persistent configuration
-VOLUME ["/config"]
+# VOLUME ["/config"]
 
 # Set the entry point to activate the virtual environment and start Home Assistant
-CMD ["/env/bin/hass", "--config", "/config"]
+# CMD ["/env/bin/hass", "--config", "/config"]
