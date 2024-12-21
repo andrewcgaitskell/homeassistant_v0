@@ -65,4 +65,4 @@ EXPOSE 8123
 VOLUME ["/config"]
 
 # Set the entry point to activate the virtual environment and start Home Assistant
-CMD ["/usr/src/homeassistant/venv/bin/hass", "--config", "/config"]
+CMD ["/env/bin/hass", "--config", "/config"]
