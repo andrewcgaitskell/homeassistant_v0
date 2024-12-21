@@ -1,4 +1,4 @@
-FROM python:3.12.4-bookworm
+FROM python:3.13.1-bookworm
 ARG BUILD_ENV_USERNAME
 ARG BUILD_ENV_UID
 ARG BUILD_ENV_GID 
@@ -9,7 +9,7 @@ ENV ENV_UID=$BUILD_ENV_UID
 ENV ENV_GID=$BUILD_ENV_GID 
 ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 
-# Install necessary system dependencies
+# Install necessary system dependencies including zlib-ng and isal
 RUN apt-get update && apt-get install -y \
     build-essential \
     libffi-dev \
@@ -18,9 +18,10 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libxslt1-dev \
     zlib1g-dev \
+    zlib-ng-dev \
+    libisal2-dev \
     git \
     && apt-get clean
-
 
 ####
 
