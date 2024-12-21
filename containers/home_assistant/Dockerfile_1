@@ -32,6 +32,7 @@ RUN useradd --uid ${ENV_UID} --gid ${ENV_GID} -m ${ENV_USERNAME}
 RUN mkdir /env
 RUN chown -R ${ENV_UID}:${ENV_GID} /env
 
+RUN mkdir /usr/src/homeassistant
 RUN chown -R ${ENV_UID}:${ENV_GID} /usr/src/homeassistant
 
 USER ${ENV_UID}:${ENV_GID}
