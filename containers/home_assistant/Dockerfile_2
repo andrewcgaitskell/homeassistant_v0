@@ -9,8 +9,8 @@ WORKDIR /usr/src/homeassistant
 # COPY custom_scripts/ /usr/src/homeassistant/custom_scripts/
 
 # Install additional Python dependencies
-COPY requirements.txt requirements.txt
-RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements.txt
+COPY requirements_2.txt requirements_2.txt
+RUN . ./venv/bin/activate && pip install --no-cache-dir -r requirements_2.txt
 
 # Optional: Install additional system packages
 RUN apt-get update && apt-get install -y \
