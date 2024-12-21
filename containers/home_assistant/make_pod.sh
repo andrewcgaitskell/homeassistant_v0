@@ -16,7 +16,6 @@ subgidSize=$(( $(podman info --format "{{ range .Host.IDMappings.GIDMap }}+{{.Si
 # Create the pod
 podman pod create \
   --name ${STATUS}_pod \
-  --infra-name infra_dev \
   --network bridge \
   --uidmap 0:1:$ENV_UID \
   --uidmap $ENV_UID:0:1 \
