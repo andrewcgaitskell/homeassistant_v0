@@ -14,6 +14,6 @@ podman run -d \
     -p 8123:8123 \
     -e TZ=Europe/London \
     --user $uid:$gid \
-    -v /home/pi5ha/homeassistant_v0/containers/home_assistant/config:/config:Z \
+    -v /home/pi5ha/homeassistant_v0/containers/home_assistant/config:/config \
     home_assistant_image_2
 
