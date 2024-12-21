@@ -6,6 +6,9 @@ subuidSize=$(( $(podman info --format "{{ range \
 subgidSize=$(( $(podman info --format "{{ range \
    .Host.IDMappings.GIDMap }}+{{.Size }}{{end }}" ) - 1 ))
 
+podman stop home_assistant_container_1
+podman rm home_assistant_container_1
+
 podman run -d \
     --name home_assistant_container_1 \
     --pod ${STATUS}_pod \
