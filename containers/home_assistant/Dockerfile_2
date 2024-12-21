@@ -17,7 +17,7 @@ WORKDIR /usr/src/homeassistant
 USER ${ENV_UID}:${ENV_GID}
 
 COPY requirements_2.txt /env/requirements_2.txt
-RUN /env/bin/pip3 install -r /env/requirements_1.txt
+RUN /env/bin/pip3 install -r /env/requirements_2.txt
 
 RUN /env/bin/pip3 freeze
 
@@ -25,4 +25,4 @@ RUN /env/bin/pip3 freeze
 EXPOSE 8123
 
 # Entry point remains unchanged
-CMD ["/usr/src/homeassistant/venv/bin/hass", "--config", "/config"]
+CMD ["/env/bin/hass", "--config", "/config"]
