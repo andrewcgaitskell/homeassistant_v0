@@ -1,3 +1,7 @@
+# Update
+
+Fedora is not supported on RPi 5
+
 # Using PODMAN
 
 podman is already installed in fedora
