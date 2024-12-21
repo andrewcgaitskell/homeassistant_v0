@@ -40,6 +40,7 @@ RUN chown -R ${ENV_UID}:${ENV_GID} /usr/src/homeassistant
 RUN mkdir /config
 COPY ./config/configuration.yaml /config/
 RUN chown -R ${ENV_UID}:${ENV_GID} /config
+RUN chmod -R g+rwx /config/
 
 USER ${ENV_UID}:${ENV_GID}
 
