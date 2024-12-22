@@ -43,6 +43,7 @@ RUN chown -R ${ENV_UID}:${ENV_GID} /config
 RUN ls -lR /config
 ## the below might have been crucial?
 RUN chmod -R g+rwx /config/
+RUN chmod g+s /config
 # RUN ls -lR /config
 
 USER ${ENV_UID}:${ENV_GID}
