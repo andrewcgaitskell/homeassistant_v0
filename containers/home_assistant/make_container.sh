@@ -17,7 +17,7 @@ chmod g+s /home/pi5ha/homeassistant/config
 podman stop home_assistant_container_1
 podman rm home_assistant_container_1
 
-podman volume create homeassistant_config_volume
+#podman volume create homeassistant_config_volume
 #podman run -it --rm -v myvolume:/data my-volume-image
 
 podman run -d \
@@ -25,7 +25,7 @@ podman run -d \
     -p 8123:8123 \
     -e TZ=Europe/London \
     --user $uid:$gid \
-    -v homeassistant_config_volume:/config \
     home_assistant_image_2
 
 ## -v /home/pi5ha/homeassistant/config:/config \
+## -v homeassistant_config_volume:/config \
