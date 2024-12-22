@@ -16,12 +16,15 @@ WORKDIR /usr/src/homeassistant
 
 RUN ls -lR /config
 
+COPY ./config/configuration.yaml /config/
+RUN chown ENV_UID:ENV_GID /config/configuration.yaml
+
 USER ${ENV_UID}:${ENV_GID}
 
 COPY requirements_2.txt /env/requirements_2.txt
 RUN /env/bin/pip3 install -r /env/requirements_2.txt
 
-COPY ./config/configuration.yaml /config/
+
 
 RUN /env/bin/pip3 freeze
 
