@@ -12,6 +12,7 @@ rm /home/pi5ha/homeassistant/config/configuration.yaml
 cp /home/pi5ha/homeassistant_v0/containers/home_assistant/config/configuration.yaml /home/pi5ha/homeassistant/config/configuration.yaml
 
 chmod -R g+rwx /home/pi5ha/homeassistant/config
+chmod g+s /home/pi5ha/homeassistant/config
 
 podman stop home_assistant_container_1
 podman rm home_assistant_container_1
