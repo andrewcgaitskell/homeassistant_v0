@@ -41,10 +41,6 @@ RUN /env/bin/pip3 install -r /env/requirements_2.txt
 # Verify installed packages
 RUN /env/bin/pip3 freeze
 
-VOLUME ["/test"]
-
-VOLUME["/config"]
-
 # Expose the default port used by Home Assistant
 EXPOSE 8123
 
