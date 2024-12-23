@@ -14,16 +14,26 @@ ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 # Set working directory
 WORKDIR /usr/src/homeassistant
 
+ENV VIRTUAL_ENV=/env
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+RUN /env/bin/python3 -m pip install --upgrade pip
+RUN . /env/bin/activate
+RUN /env/bin/python3 --version
+RUN whereis python3
+RUN whereis pip3
+
+COPY requirements_1.txt /env/requirements_1.txt
+RUN /env/bin/pip3 install -r /env/requirements_1.txt
+
+RUN /env/bin/pip3 freeze
+
 # Copy the configuration and set the correct ownership
 COPY ./config/configuration.yaml /config/
-RUN chown ${ENV_UID}:${ENV_GID} /config/configuration.yaml
-
-# Switch to the user with provided UID and GID
-USER ${ENV_UID}:${ENV_GID}
 
 # Copy requirements and install them
 COPY requirements_2.txt /env/requirements_2.txt
-RUN chown ${ENV_UID}:${ENV_GID} /env/requirements_2.txt
 RUN /env/bin/pip3 install -r /env/requirements_2.txt
 
 # Verify installed packages
