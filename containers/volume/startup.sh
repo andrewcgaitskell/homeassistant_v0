@@ -24,6 +24,4 @@ else
   exit 1
 fi
 
-echo "Cleaning up test directory and file..."
-rm -rf "$TEST_DIR" "$TEST_FILE"
-echo "Test completed successfully."
+
