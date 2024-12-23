@@ -23,8 +23,8 @@ WORKDIR /usr/src/homeassistant
 #RUN /env/bin/python3 -m pip install --upgrade pip
 #RUN . /env/bin/activate
 #RUN /env/bin/python3 --version
-RUN whereis python3
-RUN whereis pip3
+
+RUN python --version
 
 #COPY requirements_1.txt /env/requirements_1.txt
 #RUN /env/bin/pip3 install -r /env/requirements_1.txt
