@@ -27,7 +27,7 @@ RUN useradd --uid ${ENV_UID} --gid ${ENV_GID} -m ${ENV_USERNAME}
 #RUN mkdir /usr/src/homeassistant
 #RUN chown -R ${ENV_UID}:${ENV_GID} /usr/src/homeassistant
 
-RUN mkdir /config
+## RUN mkdir /config
 ## COPY ./config/configuration.yaml /config/
 RUN chown -R ${ENV_UID}:${ENV_GID} /config
 RUN ls -lR /config
