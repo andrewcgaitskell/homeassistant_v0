@@ -1,0 +1,28 @@
+# Use the previously built Home Assistant image as the base
+FROM home_assistant_image_1:latest
+
+ARG BUILD_ENV_USERNAME
+ARG BUILD_ENV_UID
+ARG BUILD_ENV_GID
+ARG BUILD_ENV_GROUPNAME
+
+ENV ENV_USERNAME=$BUILD_ENV_USERNAME
+ENV ENV_UID=$BUILD_ENV_UID
+ENV ENV_GID=$BUILD_ENV_GID
+ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
+
+USER $ENV_UID:$ENV_GID
+
+# Set working directory
+WORKDIR /usr/src/homeassistant
+
+
+# Copy requirements and install them
+COPY requirements_3.txt /env/requirements_3.txt
+RUN /env/bin/pip3 install -r /env/requirements_3.txt
+
+# Expose the default port used by Home Assistant
+EXPOSE 8123
+
+# Entry point remains unchanged
+CMD ["/env/bin/hass", "--config", "/config"]
