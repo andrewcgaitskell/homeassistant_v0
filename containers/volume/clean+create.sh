@@ -11,6 +11,6 @@ podman build -f Dockerfile -t volume_image .
 
 podman run --rm \
   --name volume_container \
-  --volume ~/volume_test:/data \
+  --volume ~/volume_test:/data:Z \
   volume_image
   
