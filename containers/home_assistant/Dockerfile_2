@@ -43,6 +43,8 @@ RUN /env/bin/pip3 freeze
 
 VOLUME['/test']
 
+VOLUME['/config']
+
 # Expose the default port used by Home Assistant
 EXPOSE 8123
 
