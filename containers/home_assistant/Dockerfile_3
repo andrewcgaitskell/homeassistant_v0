@@ -1,5 +1,5 @@
 # Use the previously built Home Assistant image as the base
-FROM home_assistant_image_1:latest
+FROM home_assistant_image_2:latest
 
 ARG BUILD_ENV_USERNAME
 ARG BUILD_ENV_UID
