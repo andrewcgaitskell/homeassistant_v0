@@ -24,7 +24,7 @@ podman run -d \
     -v /home/pi5ha/homeassistant/test:/test \
     -v /home/pi5ha/homeassistant/config:/config \
     --userns=keep-id \
-    home_assistant_image_3
+    home_assistant_image_2
 
 ## -v /home/pi5ha/homeassistant/config:/config \
 ## -v homeassistant_config_volume:/config \
