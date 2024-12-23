@@ -21,7 +21,7 @@ podman run -d \
     --name home_assistant_container_1 \
     -p 8123:8123 \
     -e TZ=Europe/London \
-    -v /home/pi5ha/homeassistant/test:/test \ 
+    -v /home/pi5ha/homeassistant/test:/test \
     -v /home/pi5ha/homeassistant/config:/config \
     --userns=keep-id \
     home_assistant_image_2
