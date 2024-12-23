@@ -5,10 +5,10 @@ FROM alpine:latest
 WORKDIR /app
 
 # Copy the startup script into the container
-COPY test_volume_permissions.sh /app/test_volume_permissions.sh
+COPY startup.sh /app/startup.sh
 
 # Make the script executable
-RUN chmod +x /app/test_volume_permissions.sh
+RUN chmod +x /app/startup.sh
 
 # Mount a volume at /data and run the script during startup
-CMD ["/app/test_volume_permissions.sh"]
+CMD ["/app/startup.sh"]
