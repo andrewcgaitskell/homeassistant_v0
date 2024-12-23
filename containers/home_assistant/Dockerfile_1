@@ -46,22 +46,10 @@ RUN chmod -R g+rwx /config/
 RUN chmod g+s /config
 # RUN ls -lR /config
 
-USER ${ENV_UID}:${ENV_GID}
-
-ENV VIRTUAL_ENV=/env
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-RUN /env/bin/python3 -m pip install --upgrade pip
-RUN . /env/bin/activate
-RUN /env/bin/python3 --version
-RUN whereis python3
-RUN whereis pip3
-
-COPY requirements_1.txt /env/requirements_1.txt
-RUN /env/bin/pip3 install -r /env/requirements_1.txt
-
-RUN /env/bin/pip3 freeze
+RUN mkdir -p /test
+RUN chown -R ${ENV_UID}:${ENV_GID} /test
+RUN chmod -R g+rwx /test/
+RUN chmod g+s /test
 
 
 ####
