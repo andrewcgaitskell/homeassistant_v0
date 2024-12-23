@@ -20,13 +20,13 @@ WORKDIR /app
 RUN mkdir -p /data && chown -R 1000:1000 /data
 
 # Switch to the non-root user
-USER appuser
+USER pi5ha
 
 # Copy the startup script into the container
-COPY test_volume_permissions.sh /app/test_volume_permissions.sh
+COPY startup.sh /app/startup.sh
 
 # Make the script executable
-RUN chmod +x /app/test_volume_permissions.sh
+RUN chmod +x /app/startup.sh
 
 # Command to run the script on container startup
-CMD ["/app/test_volume_permissions.sh"]
+CMD ["/app/startup.sh"]
