@@ -1,5 +1,5 @@
 # Use the previously built Home Assistant image as the base
-FROM home_assistant_image_1:latest
+FROM docker.io/homeassistant/arm64-homeassistant
 
 ARG BUILD_ENV_USERNAME
 ARG BUILD_ENV_UID
