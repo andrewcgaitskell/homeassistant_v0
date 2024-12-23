@@ -9,6 +9,8 @@ ENV ENV_UID=$BUILD_ENV_UID
 ENV ENV_GID=$BUILD_ENV_GID 
 ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 
+USER root
+
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -51,17 +53,3 @@ RUN chown -R ${ENV_UID}:${ENV_GID} /test
 RUN chmod -R g+rwx /test/
 RUN chmod g+s /test
 
-
-####
-
-# Set working directory
-WORKDIR /usr/src/homeassistant
-
-# Expose the default port used by Home Assistant
-# EXPOSE 8123
-
-# Create a volume for persistent configuration
-# VOLUME ["/config"]
-
-# Set the entry point to activate the virtual environment and start Home Assistant
-# CMD ["/env/bin/hass", "--config", "/config"]
