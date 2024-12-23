@@ -14,11 +14,6 @@ ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 # Set working directory
 WORKDIR /usr/src/homeassistant
 
-RUN mkdir -p /test
-RUN chown -R ${ENV_UID}:${ENV_GID} /test
-RUN chmod -R g+rwx /test/
-RUN chmod g+s /test
-
 # Copy the configuration and set the correct ownership
 COPY ./config/configuration.yaml /config/
 RUN chown ${ENV_UID}:${ENV_GID} /config/configuration.yaml
