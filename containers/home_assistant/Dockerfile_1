@@ -11,9 +11,8 @@ ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 
 USER root
 
-# Install groupadd and useradd (provided by passwd package in Debian)
-RUN apt-get update && apt-get install -y --no-install-recommends passwd && \
-    rm -rf /var/lib/apt/lists/*
+# Install groupadd and useradd (part of the shadow package in Alpine)
+RUN apk add --no-cache shadow
 
 ####
 
