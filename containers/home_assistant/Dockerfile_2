@@ -16,13 +16,13 @@ USER $ENV_UID:$ENV_GID
 # Set working directory
 WORKDIR /usr/src/homeassistant
 
-ENV VIRTUAL_ENV=/env
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+#ENV VIRTUAL_ENV=/env
+#RUN python3 -m venv $VIRTUAL_ENV
+#ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN /env/bin/python3 -m pip install --upgrade pip
-RUN . /env/bin/activate
-RUN /env/bin/python3 --version
+#RUN /env/bin/python3 -m pip install --upgrade pip
+#RUN . /env/bin/activate
+#RUN /env/bin/python3 --version
 RUN whereis python3
 RUN whereis pip3
 
@@ -35,14 +35,12 @@ RUN whereis pip3
 # COPY ./config/configuration.yaml /config/
 
 # Copy requirements and install them
-COPY requirements_2.txt /env/requirements_2.txt
-RUN /env/bin/pip3 install -r /env/requirements_2.txt
+# COPY requirements_2.txt /env/requirements_2.txt
+# RUN /env/bin/pip3 install -r /env/requirements_2.txt
 
-# Verify installed packages
-RUN /env/bin/pip3 freeze
 
 # Expose the default port used by Home Assistant
 EXPOSE 8123
 
 # Entry point remains unchanged
-CMD ["/env/bin/hass", "--config", "/config"]
+CMD ["hass", "--config", "/config"]
