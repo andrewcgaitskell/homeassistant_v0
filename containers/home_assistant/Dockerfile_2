@@ -32,7 +32,7 @@ RUN /env/bin/pip3 install -r /env/requirements_1.txt
 RUN /env/bin/pip3 freeze
 
 # Copy the configuration and set the correct ownership
-COPY ./config/configuration.yaml /config/
+# COPY ./config/configuration.yaml /config/
 
 # Copy requirements and install them
 COPY requirements_2.txt /env/requirements_2.txt
