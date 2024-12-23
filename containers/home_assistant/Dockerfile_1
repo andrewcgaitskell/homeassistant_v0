@@ -1,4 +1,4 @@
-FROM python:3.13.1-bookworm
+FROM homeassistant/arm64-homeassistant
 ARG BUILD_ENV_USERNAME
 ARG BUILD_ENV_UID
 ARG BUILD_ENV_GID 
@@ -10,41 +10,6 @@ ENV ENV_GID=$BUILD_ENV_GID
 ENV ENV_GROUPNAME=$BUILD_ENV_GROUPNAME
 
 USER root
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    python3-dev \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
-    zlib1g-dev \
-    libjpeg-dev \
-    libturbojpeg0-dev \
-    libopenjp2-7-dev \
-    libtiff-dev \
-    libcurl4-openssl-dev \
-    ffmpeg \
-    libavformat-dev \
-    libavcodec-dev \
-    libavutil-dev \
-    libsqlite3-dev \
-    bluez \
-    libbluetooth-dev \
-    udev \
-    libpcap-dev \
-    iputils-ping \
-    tzdata \
-    curl \
-    wget \
-    libxslt-dev \
-    libxml2-dev \
-    mariadb-dev \
-    postgresql-dev \
-    libisal-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get upgrade -y
 
 ####
 
