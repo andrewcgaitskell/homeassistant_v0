@@ -1,4 +1,4 @@
-FROM homeassistant/arm64-homeassistant
+FROM docker.io/homeassistant/home-assistant:2024.12
 ARG BUILD_ENV_USERNAME
 ARG BUILD_ENV_UID
 ARG BUILD_ENV_GID 
