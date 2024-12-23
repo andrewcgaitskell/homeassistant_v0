@@ -26,10 +26,10 @@ RUN /env/bin/python3 --version
 RUN whereis python3
 RUN whereis pip3
 
-COPY requirements_1.txt /env/requirements_1.txt
-RUN /env/bin/pip3 install -r /env/requirements_1.txt
+#COPY requirements_1.txt /env/requirements_1.txt
+#RUN /env/bin/pip3 install -r /env/requirements_1.txt
 
-RUN /env/bin/pip3 freeze
+#RUN /env/bin/pip3 freeze
 
 # Copy the configuration and set the correct ownership
 # COPY ./config/configuration.yaml /config/
