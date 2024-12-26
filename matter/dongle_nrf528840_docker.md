@@ -1,4 +1,7 @@
-Yes, you can prepare the NRF52840 dongle via Docker by running a container that provides the necessary tools and environment to flash the NCP firmware. This eliminates the need to install Nordic's tools directly on your Raspberry Pi.
+Yes, you can prepare the NRF52840 dongle via Docker by running a container that provides the necessary tools and environment to flash the NCP firmware.
+
+
+This eliminates the need to install Nordic's tools directly on your Raspberry Pi.
 
 Here’s how to do it:
 Step 1: Prepare the NRF52840 Dongle Using Docker
