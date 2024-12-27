@@ -1,11 +1,7 @@
-# Start with the official ESP-IDF image
+# Base image from Espressif
 FROM espressif/idf:latest
 
-# Set environment variables for ESP-IDF
-ENV IDF_PATH=/opt/esp/idf
-ENV PATH=$IDF_PATH/tools:$PATH
-
-# Update and install necessary dependencies
+# Install required system dependencies
 RUN apt-get update && apt-get install -y \
     cmake \
     ninja-build \
@@ -13,19 +9,19 @@ RUN apt-get update && apt-get install -y \
     g++ \
     python3-pip \
     python3-dev \
+    libssl-dev \
+    libffi-dev \
+    build-essential \
     libdbus-1-dev \
     libavahi-client-dev \
     libavahi-common-dev \
     libudev-dev \
     libglib2.0-dev \
-    libssl-dev \
-    libffi-dev \
     libusb-1.0-0-dev \
-    build-essential \
     && apt-get clean
 
 # Upgrade pip and setuptools
-RUN pip3 install --upgrade pip setuptools
+RUN python3 -m pip install --upgrade pip setuptools
 
 # Install Python dependencies for Matter
 RUN pip3 install pycryptodome cryptography chip-device-ctrl
@@ -36,10 +32,9 @@ RUN git clone --recursive https://github.com/espressif/esp-matter.git /opt/esp/e
 # Clone and build OpenThread
 RUN git clone --recursive https://github.com/openthread/openthread.git /opt/esp/openthread
 WORKDIR /opt/esp/openthread
-RUN ./script/bootstrap
-RUN ./script/build
+RUN ./script/bootstrap && ./script/build
 
-# Clone and build Matter's chip-tool
+# Clone and build Matter chip-tool
 RUN git clone --recursive https://github.com/project-chip/connectedhomeip.git /opt/esp/chip
 WORKDIR /opt/esp/chip
 RUN ./scripts/build/build_examples.py --target esp32
@@ -48,5 +43,5 @@ RUN ./scripts/build/build_examples.py --target esp32
 WORKDIR /opt/esp/esp-matter
 RUN idf.py set-target esp32c6
 
-# Return to default work directory
+# Set default working directory
 WORKDIR /project
