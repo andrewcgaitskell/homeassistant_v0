@@ -7,7 +7,7 @@ Step 1: Create the Joiner Project
 
 Run this Docker command to copy the Thread Joiner example into your working directory:
 
-docker run --rm -v /home/pi5ha/my_project:/project -w /opt/esp/idf/examples/openthread espressif/idf \
+docker run --rm -v /home/pi5ha/thread_joiner_project:/project -w /opt/esp/idf/examples/openthread espressif/idf \
     cp -r joiner /project
 
 This copies the example project into /home/pi5ha/my_project.
