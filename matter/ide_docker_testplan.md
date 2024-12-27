@@ -85,9 +85,13 @@ Expected Result:
 
         docker run --rm -v /home/pi5ha:/home/pi5ha -w /home/pi5ha espressif/idf idf.py create-project my_project
 
+        docker run --rm -v /home/pi5ha:/home/pi5ha -w /home/pi5ha espressif/idf idf.py create-project thread_project
+
     ## build
 
         docker run --rm -v /home/pi5ha/my_project:/project -w /project espressif/idf idf.py build
+
+        docker run --rm -v /home/pi5ha/thread_project:/project -w /project espressif/idf idf.py build
         
 
         Observe the output.
