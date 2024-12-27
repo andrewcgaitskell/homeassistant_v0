@@ -12,39 +12,41 @@ RUN apt-get update && apt-get install -y \
     git \
     g++ \
     python3-pip \
+    python3-dev \
     libdbus-1-dev \
     libavahi-client-dev \
     libavahi-common-dev \
     libudev-dev \
     libglib2.0-dev \
+    libssl-dev \
+    libffi-dev \
     libusb-1.0-0-dev \
+    build-essential \
     && apt-get clean
 
+# Upgrade pip and setuptools
+RUN pip3 install --upgrade pip setuptools
+
 # Install Python dependencies for Matter
-RUN pip3 install \
-    pycryptodome \
-    cryptography \
-    chip-device-ctrl \
-    chip-tool
+RUN pip3 install pycryptodome cryptography chip-device-ctrl
 
 # Clone ESP-Matter repository
 RUN git clone --recursive https://github.com/espressif/esp-matter.git /opt/esp/esp-matter
 
-# Clone OpenThread and dependencies
+# Clone and build OpenThread
 RUN git clone --recursive https://github.com/openthread/openthread.git /opt/esp/openthread
-
-# Build OpenThread CLI and libraries
 WORKDIR /opt/esp/openthread
 RUN ./script/bootstrap
 RUN ./script/build
 
+# Clone and build Matter's chip-tool
+RUN git clone --recursive https://github.com/project-chip/connectedhomeip.git /opt/esp/chip
+WORKDIR /opt/esp/chip
+RUN ./scripts/build/build_examples.py --target esp32
+
 # Configure ESP-Matter
 WORKDIR /opt/esp/esp-matter
 RUN idf.py set-target esp32c6
-
-# Make ESP-Matter accessible from mounted projects
-ENV MATTER_PATH=/opt/esp/esp-matter
-ENV PATH=$MATTER_PATH:$PATH
 
 # Return to default work directory
 WORKDIR /project
