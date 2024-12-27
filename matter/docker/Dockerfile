@@ -25,10 +25,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Upgrade pip and setuptools
-RUN pip install --upgrade pip setuptools
+RUN pip3 install --upgrade pip setuptools
 
 # Install Python dependencies for Matter
-RUN pip install pycryptodome cryptography chip-device-ctrl
+RUN pip3 install pycryptodome cryptography chip-device-ctrl
 
 # Clone ESP-Matter repository
 RUN git clone --recursive https://github.com/espressif/esp-matter.git /opt/esp/esp-matter
